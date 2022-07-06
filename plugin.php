@@ -1,25 +1,24 @@
 <?php
 /**
- * Simple Alert Boxes Plugin
+ * Callout Boxes Plugin
  *
- * @package    simple-alert-boxes
- * @author     Rafael Mardojai CM <mardojai.cardenas@gmail.com>
- * @link       http://www.rafael.mardojai.com/simple-alert-boxes-plugin/
+ * @package    callout-boxes
+ * @author     David Skinner <djbskinner.icloud.com>
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
- * Plugin Name: Simple Alert Boxes
- * Plugin URI: http://www.rafael.mardojai.com/simple-alert-boxes-plugin
- * Description: Use responsives alert boxes with shortcodes.
- * Version: 1.4.0
- * Author: Rafael Mardojai CM
- * Author URI: http://www.rafael.mardojai.com
+ * Plugin Name: Callout Boxes
+ * Plugin URI: 
+ * Description: Use responsives callout boxes with shortcodes.
+ * Version: 2.0.0
+ * Author: David Skinner
+ * Author URI: 
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-/*  Copyright 2016 Rafael Mardojai CM  (email : mardojai.cardenas@gmail.com)
+/*  Copyright 2022 David Skinner (email: djbskinner@icloud.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
@@ -40,27 +39,27 @@
  *
  * @since 1.0.0
  */
-function simple_alert_boxes_styles() {
-	$options = get_option( 'sab_options' );
+function callout_boxes_styles() {
+	$options = get_option( 'cob_options' );
 
-	wp_enqueue_style( 'simple-alert-boxes', plugins_url( 'css/simple-alert-boxes.css', __FILE__ ), array(), '1.4', 'all' );
-	wp_enqueue_style( 'sab-fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0', 'all' );
+	wp_enqueue_style( 'callout-boxes', plugins_url( 'css/callout-boxes.css', __FILE__ ), array(), '1.4', 'all' );
+	wp_enqueue_style( 'cob-fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0', 'all' );
 }
-add_action( 'wp_enqueue_scripts', 'simple_alert_boxes_styles' );
+add_action( 'wp_enqueue_scripts', 'callout_boxes_styles' );
 
 /**
  * Admin styles enqueue
  *
  * @since 1.3.0
  */
-function simple_alert_boxes_admin_styles() {
-	wp_enqueue_style( 'simple-alert-boxes-tinymce', plugins_url( 'css/simple-alert-boxes-tinymce.css', __FILE__ ) );
+function callout_boxes_admin_styles() {
+	wp_enqueue_style( 'callout-boxes-tinymce', plugins_url( 'css/callout-boxes-tinymce.css', __FILE__ ) );
 }
-add_action( 'admin_enqueue_scripts', 'simple_alert_boxes_admin_styles' );
+add_action( 'admin_enqueue_scripts', 'callout_boxes_admin_styles' );
 
 /**
  * Shortcode
- * [alert type=the-box-type icon-size=the-icon-size]the content[/alert]
+ * [callout type=the-box-type icon-size=the-icon-size]the content[/callout]
  *
  * @since 1.0.0
  *
@@ -68,27 +67,27 @@ add_action( 'admin_enqueue_scripts', 'simple_alert_boxes_admin_styles' );
  * @param string $content Shortcode content.
  * @return string Shortcode HTML.
  */
-function simple_alert_boxes_output( $atts, $content = null) {
+function callout_boxes_output( $atts, $content = null) {
     $atts = shortcode_atts( array(
         'type'      => 'info', // set type attr and defaults
-		'icon-size' => 'normal', // set icon-size attr and defaults
+		'size' => 'normal', // set size attr and defaults
 		'text'      => '' // 1.0.0 $content
     ), $atts );
 
-	$options = get_option( 'sab_options' );
+	$options = get_option( 'cob_options' );
 	$classes = array();
 	$classes[] = $atts['type'];
-	$classes[] = $atts['icon-size'];
+	$classes[] = $atts['size'];
 
 	ob_start();
 	?>
-	<div class="simple-alert-boxes <?php foreach( $classes as $class ) { echo 'sab_' . $class . ' '; }?>">
+	<div class="callout-box <?php foreach( $classes as $class ) { echo 'cob_' . $class . ' '; }?>">
 		<?php echo $atts['text']; echo do_shortcode( $content ); ?>
 	</div>
 	<?php
 	return ob_get_clean();
 }
-add_shortcode( 'alert', 'simple_alert_boxes_output' );
+add_shortcode( 'callout', 'callout_boxes_output' );
 
 /**
  * Filters the content to remove any extra paragraph or break tags
@@ -99,7 +98,7 @@ add_shortcode( 'alert', 'simple_alert_boxes_output' );
  * @param string $content  String of HTML content.
  * @return string $content Amended string of HTML content.
  */
-function sab_empty_paragraph_fix( $content ) {
+function cob_empty_paragraph_fix( $content ) {
 
     $array = array(
         '<p>['    => '[',
@@ -109,18 +108,18 @@ function sab_empty_paragraph_fix( $content ) {
     return strtr( $content, $array );
 
 }
-add_filter( 'the_content', 'sab_empty_paragraph_fix' );
+add_filter( 'the_content', 'cob_empty_paragraph_fix' );
 
 /**
  * Register TinyMCE plugin
  *
  * @since 1.2.0
  */
-function simple_alert_boxes_tinymce() {
-    add_filter( 'mce_external_plugins', 'sab_add_tinymce_plugin' );
-    add_filter( 'mce_buttons', 'sab_add_tinymce_button' );
+function callout_boxes_tinymce() {
+    add_filter( 'mce_external_plugins', 'cob_add_tinymce_plugin' );
+    add_filter( 'mce_buttons', 'cob_add_tinymce_button' );
 }
-add_action( 'admin_head', 'simple_alert_boxes_tinymce' );
+add_action( 'admin_head', 'callout_boxes_tinymce' );
 
 /**
  * Add TinyMCE plugin
@@ -129,8 +128,8 @@ add_action( 'admin_head', 'simple_alert_boxes_tinymce' );
  *
  * @param array $plugin_array TinyMCE plugins list
  */
-function sab_add_tinymce_plugin( $plugin_array ) {
-    $plugin_array['simple_alert_boxes'] = plugins_url( '/js/plugin.js', __FILE__ );
+function cob_add_tinymce_plugin( $plugin_array ) {
+    $plugin_array['callout_boxes'] = plugins_url( '/js/plugin.js', __FILE__ );
     return $plugin_array;
 }
 
@@ -139,7 +138,7 @@ function sab_add_tinymce_plugin( $plugin_array ) {
  *
  * @since 1.2.0
  */
-function sab_add_tinymce_button( $buttons ) {
-    array_push( $buttons, 'alert_boxes_button_key' );
+function cob_add_tinymce_button( $buttons ) {
+    array_push( $buttons, 'callout_box_button_key' );
     return $buttons;
 }

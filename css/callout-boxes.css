@@ -1,20 +1,28 @@
 /*==============================================================================
                                     BASE
 ==============================================================================*/
-.simple-alert-boxes {
+.simple-alert-boxes,
+.callout-box
+{
   box-sizing: border-box;
   font-size: 100%;
   margin: 1em 0;
   position: relative;
   width: 100%;
 }
-.simple-alert-boxes *:last-child {
+.simple-alert-boxes *:last-child,
+.callout-box *:last-child
+{
   margin-bottom: 0;
 }
-.simple-alert-boxes::before {
+.simple-alert-boxes::before,
+.callout-box::before
+{
   line-height: 0 !important;
 }
-.simple-alert-boxes.sab_normal::before {
+.simple-alert-boxes.sab_normal::before,
+.callout-box
+{
   font-size: 120% !important;
 }
 .simple-alert-boxes.sab_small::before {

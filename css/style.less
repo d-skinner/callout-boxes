@@ -1,29 +1,52 @@
-// out: simple-alert-boxes.css
-
 /*==============================================================================
                                     BASE
 ==============================================================================*/
-.simple-alert-boxes {
+.simple-alert-boxes,
+.callout-box
+{
     box-sizing: border-box;
     font-size: 100%;
     margin: 1em 0;
     position: relative;
     width: 100%;
 }
-.simple-alert-boxes *:last-child {
+
+.simple-alert-boxes *:last-child,
+.callout-box *:last-child
+{
     margin-bottom: 0;
 }
 
-.simple-alert-boxes::before {
+.simple-alert-boxes::before,
+.callout-box::before
+{
     line-height: 0 !important;
 }
 
-.simple-alert-boxes.sab_normal::before {font-size: 120% !important;}
-.simple-alert-boxes.sab_small::before {font-size: 75% !important;}
-.simple-alert-boxes.sab_big::before {font-size: 200% !important;}
-.simple-alert-boxes.sab_hide-icon::before {display: none;}
+.simple-alert-boxes.sab_hide-icon::before,
+.callout-box.cob_hide::before
+{
+    display: none;
+}
+.simple-alert-boxes.sab_small::before,
+.callout-box.cob_small::before
+{
+    font-size: 75% !important;
+}
+.simple-alert-boxes.sab_normal::before,
+.callout-box.cob_normal::before
+{
+    font-size: 120% !important;
+}
+.simple-alert-boxes.sab_big::before,
+.callout-box.cob_big::before
+{
+    font-size: 200% !important;
+}
 
-.simple-alert-boxes::after {
+.simple-alert-boxes::after,
+.callout-box::after
+{
     content: "";
     display: block;
     clear: both;
@@ -80,21 +103,21 @@
         .palete(#a94442, #F2DEDE);
     }
 
-    &.sab_normal {
-        padding-left: 2.884em !important;
-    }
     &.sab_small {
         padding-left: 2.667em !important;
+    }
+    &.sab_normal {
+        padding-left: 2.884em !important;
     }
     &.sab_big {
         padding-left: 4em !important;
     }
 
-    &.sab_normal::before {
-        left: 0.842em;
-    }
     &.sab_small::before {
         left: 1.333em;
+    }
+    &.sab_normal::before {
+        left: 0.842em;
     }
     &.sab_big::before {
         left: 0.500em;

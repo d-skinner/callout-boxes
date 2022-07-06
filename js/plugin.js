@@ -1,15 +1,15 @@
 (function(){
-    tinymce.PluginManager.add( 'simple_alert_boxes', function(editor, url){
+    tinymce.PluginManager.add( 'callout_boxes', function(editor, url){
 
-        editor.addButton( 'alert_boxes_button_key', {
+        editor.addButton( 'callout_box_button_key', {
 
-            tooltip: 'Insert Alert Box',
-            icon: 'icon dashicons-warning',
+            tooltip: 'Insert Callout Box',
+            icon: 'icon dashicons-align-wide',
             onclick: function(){
                 var selection = tinymce.activeEditor.selection.getContent();
                 // Open window
                 editor.windowManager.open({
-                    title: 'Insert Alert Box',
+                    title: 'Insert Callout Box',
                     body: [
                         {
                             type: 'textbox',
@@ -22,13 +22,13 @@
                         },
                         {
                             type: 'listbox',
-                            name: 'box_type',
-                            label: 'Box Type',
+                            name: 'callout_type',
+                            label: 'Callout Type',
                             'values': [
-                                {text: 'Info Box', value: 'info'},
-                                {text: 'Success Box', value: 'success'},
-                                {text: 'Warning Box', value: 'warning'},
-                                {text: 'Danger Box', value: 'danger'}
+                                {text: 'Info', value: 'info'},
+                                {text: 'Tips', value: 'tips'},
+                                {text: 'Important Notes', value: 'note'},
+                                {text: 'Warnings', value: 'warn'}
                             ]
                         },
                         {
@@ -36,16 +36,16 @@
                             name: 'icon_size',
                             label: 'Icon Size',
                             'values': [
+                                {text: 'Hide Icon', value: 'hide'},
                                 {text: 'Normal', value: 'normal'},
                                 {text: 'Small', value: 'small'},
-                                {text: 'Big', value: 'big'},
-                                {text: 'Hide Icon', value: 'hide-icon'}
+                                {text: 'Big', value: 'big'}
                             ]
                         }
                     ],
                     onsubmit: function(e){
                         // Insert content when the window form is submitted
-                        editor.insertContent( '[alert  type="'+ e.data.box_type +'" icon-size="'+ e.data.icon_size +'"]' + e.data.text + '[/alert]');
+                        editor.insertContent( '[callout  type="'+ e.data.callout_type +'" size="'+ e.data.icon_size +'"]' + e.data.text + '[/callout]');
                     }
                 });
             }
