@@ -66,7 +66,7 @@ add_action( 'admin_enqueue_scripts', 'callout_boxes_admin_styles' );
  * 
  * [callout type=the-box-type size=the-icon-size]the content[/callout]
  *
- * @since 1.0.0
+ * @since 2.0.1
  *
  * @param array $atts Shortcode atts.
  * @param string $content Shortcode content.

@@ -31,6 +31,9 @@ Built on the work from Simple Alert Boxes
 
 ## Changelog
 
+#### 2.0.1 - 15/07/2022
+* Added 'alert' and 'docembed' Shortcodes
+
 #### 2.0.0 - 06/07/2022
 * Shortcode overhaul
 * JS overhaul
