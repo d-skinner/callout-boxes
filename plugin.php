@@ -57,9 +57,14 @@ function callout_boxes_admin_styles() {
 }
 add_action( 'admin_enqueue_scripts', 'callout_boxes_admin_styles' );
 
+/*********************************************************************
+ * SHORTCODES
+*********************************************************************/
+
 /**
- * Shortcode
- * [callout type=the-box-type icon-size=the-icon-size]the content[/callout]
+ * Callout Shortcode
+ * 
+ * [callout type=the-box-type size=the-icon-size]the content[/callout]
  *
  * @since 1.0.0
  *
@@ -69,10 +74,32 @@ add_action( 'admin_enqueue_scripts', 'callout_boxes_admin_styles' );
  */
 function callout_boxes_output( $atts, $content = null) {
     $atts = shortcode_atts( array(
-        'type'      => 'info', // set type attr and defaults
-		'size' => 'normal', // set size attr and defaults
-		'text'      => '' // 1.0.0 $content
+        'type'      => 'info',      // set type attr and defaults
+		'size'      => 'normal',    // set size attr and defaults
+		'text'      => ''           // 1.0.0 $content
     ), $atts );
+
+    /* ALERT SHORTCODE */
+    $atts['size'] = $atts['icon-size'];
+
+    /* DOCUMETOR SHORTCODE */
+    if($atts['element'] == 'callout')
+    {
+        switch ($atts['type'])
+        {
+            case 'note':
+                $atts['type'] = 'info';
+                    
+            case 'message':
+                $atts['type'] = 'tips';
+
+            case 'warning':
+                $atts['type'] = 'note';
+
+            case 'error':
+                $atts['type'] = 'warn';
+        }
+    }
 
 	$options = get_option( 'cob_options' );
 	$classes = array();
@@ -88,6 +115,13 @@ function callout_boxes_output( $atts, $content = null) {
 	return ob_get_clean();
 }
 add_shortcode( 'callout', 'callout_boxes_output' );
+add_shortcode( 'alert', 'callout_boxes_output' );
+add_shortcode( 'docembed', 'callout_boxes_output' );
+
+
+/*********************************************************************
+ * FILTERS
+*********************************************************************/
 
 /**
  * Filters the content to remove any extra paragraph or break tags
@@ -98,7 +132,7 @@ add_shortcode( 'callout', 'callout_boxes_output' );
  * @param string $content  String of HTML content.
  * @return string $content Amended string of HTML content.
  */
-function cob_empty_paragraph_fix( $content ) {
+function empty_paragraph_fix( $content ) {
 
     $array = array(
         '<p>['    => '[',
@@ -108,7 +142,12 @@ function cob_empty_paragraph_fix( $content ) {
     return strtr( $content, $array );
 
 }
-add_filter( 'the_content', 'cob_empty_paragraph_fix' );
+add_filter( 'the_content', 'empty_paragraph_fix' );
+
+
+/*********************************************************************
+ * TINYMCE
+*********************************************************************/
 
 /**
  * Register TinyMCE plugin
@@ -129,7 +168,7 @@ add_action( 'admin_head', 'callout_boxes_tinymce' );
  * @param array $plugin_array TinyMCE plugins list
  */
 function cob_add_tinymce_plugin( $plugin_array ) {
-    $plugin_array['callout_boxes'] = plugins_url( '/js/plugin.js', __FILE__ );
+    $plugin_array['callout_boxes'] = plugins_url( '/js/tinymce-plugin.js', __FILE__ );
     return $plugin_array;
 }
 
