@@ -1,167 +1,114 @@
 /*==============================================================================
                                     BASE
 ==============================================================================*/
-.simple-alert-boxes,
 .callout-box
 {
+    --color: 0, 0%;
+
     box-sizing: border-box;
     font-size: 100%;
     margin: 1em 0;
     position: relative;
     width: 100%;
+    border: 1px solid;
+    padding: 1em 1em 1em 3.5em;
+    border-radius: 0.5em;
+
+    color: hsl(var(--color), 40%);
+    background-color: hsl(var(--color), 85%);
+    border-color: hsl(var(--color), 60%);
 }
 
-.simple-alert-boxes *:last-child,
 .callout-box *:last-child
 {
     margin-bottom: 0;
 }
 
-.simple-alert-boxes::before,
-.callout-box::before
+
+/*==============================================================================
+                                    THEMES
+==============================================================================*/
+.callout-box.cob_info
 {
-    line-height: 0 !important;
+    /*color: hsl(0, 0%, 60%);*/
+    --color: 0, 0%;
+}
+    
+.callout-box.cob_tips
+{
+    /*color: hsl(86, 75%, 60%)*/
+    --color: 86, 75%;
+}
+    
+.callout-box.cob_note
+{
+    /*color: hsl(46, 75%, 60%);*/
+    --color: 46, 75%;
+}
+    
+.callout-box.cob_warn
+{
+    /*color: hsl(0, 75%, 60%);*/
+    --color: 0, 75%;
 }
 
-.simple-alert-boxes.sab_hide-icon::before,
+
+/*==============================================================================
+                                    SIZE
+==============================================================================*/
 .callout-box.cob_hide::before
 {
     display: none;
 }
-.simple-alert-boxes.sab_small::before,
+
 .callout-box.cob_small::before
 {
     font-size: 75% !important;
 }
-.simple-alert-boxes.sab_normal::before,
+
 .callout-box.cob_normal::before
 {
     font-size: 120% !important;
 }
-.simple-alert-boxes.sab_big::before,
+
 .callout-box.cob_big::before
 {
     font-size: 200% !important;
 }
 
-.simple-alert-boxes::after,
-.callout-box::after
-{
-    content: "";
-    display: block;
-    clear: both;
-}
 
 /*==============================================================================
                                     ICONS
 ==============================================================================*/
 
 /* FontAwesome */
-.simple-alert-boxes::before,
 .callout-box::before
 {
     width: 1em;
     text-align: center;
     font-family: FontAwesome;
+    line-height: 0 !important;
+    position: absolute;
+    top: 50%;
+    left: 1em;
 }
 
-.simple-alert-boxes.sab_info::before,
 .callout-box.cob_info::before
 {
     content: "\f129";
 }
-.simple-alert-boxes.sab_success::before,
+
 .callout-box.cob_tips::before
 {
     content: "\f00c";
 }
-.simple-alert-boxes.sab_warning::before,
+
 .callout-box.cob_note::before
 {
     content: "\f12a";
 }
-.simple-alert-boxes.sab_danger::before,
+
 .callout-box.cob_warn::before
 {
     content: "\f00d";
-}
-
-/*==============================================================================
-                                    THEMES
-==============================================================================*/
-
-.palete(@color, @bgcolor) {
-    background: @bgcolor;
-    border-color: lighten(@color, 40%);
-    color: @color !important;
-    h1, h2, h3, h4, h5, h6, a, strong {
-        color: darken(@color, 10%) !important;
-    }
-}
-
-.simple-alert-boxes,
-.callout-box
-{
-    border: 1px solid;
-    padding: 1em !important;
-
-    &::before
-    {
-        position: absolute;
-        top: 50%;
-        left: 1em;
-    }
-
-    &.sab_info,
-    &.cob_info
-    {
-        .palete(#31708f, #D9EDF7);
-    }
-    &.sab_success,
-    &.cob_tips
-    {
-        .palete(#3c763d, #DFF0D8);
-    }
-    &.sab_warning,
-    &.cob_note
-    {
-        .palete(#8a6d3b, #FCF8E3);
-    }
-    &.sab_danger,
-    &.cob_warn
-    {
-        .palete(#a94442, #F2DEDE);
-    }
-
-    &.sab_small,
-    &.cob_small
-    {
-        padding-left: 2.667em !important;
-    }
-    &.sab_normal,
-    &.cob_normal
-    {
-        padding-left: 2.884em !important;
-    }
-    &.sab_big,
-    &.cob_big
-    {
-        padding-left: 4em !important;
-    }
-
-    &.sab_small::before,
-    &.cob_small::before
-    {
-        left: 1.333em;
-    }
-    &.sab_normal::before,
-    &.cob_normal::before
-    {
-        left: 0.842em;
-    }
-    &.sab_big::before,
-    &.cob_big::before
-    {
-        left: 0.500em;
-    }
 }
