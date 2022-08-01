@@ -72,15 +72,38 @@ add_action( 'admin_enqueue_scripts', 'callout_boxes_admin_styles' );
  * @param string $content Shortcode content.
  * @return string Shortcode HTML.
  */
-function callout_boxes_output( $atts, $content = null) {
+function callout_boxes_output( array $atts, string $content = null) {
     $atts = shortcode_atts( array(
         'type'      => 'info',      // set type attr and defaults
 		'size'      => 'normal',    // set size attr and defaults
-		'text'      => ''           // 1.0.0 $content
+		'icon-size' => '',			// same as above - from simple alert boxes
+		'element'	=> ''			// From Documentor
     ), $atts );
-
+    
     /* ALERT SHORTCODE */
-    $atts['size'] = $atts['icon-size'];
+    if($atts['icon-size'] != '')
+    {
+        switch ($atts['type'])
+        {
+            case 'success':
+                $atts['type'] = 'info';
+                break;
+                    
+            case 'info':
+                $atts['type'] = 'tips';
+                break;
+
+            case 'warning':
+                $atts['type'] = 'note';
+                break;
+
+            case 'danger':
+                $atts['type'] = 'warn';
+                break;
+        }
+
+        $atts['size'] = $atts['icon-size'];
+    }
 
     /* DOCUMETOR SHORTCODE */
     if($atts['element'] == 'callout')
@@ -89,19 +112,23 @@ function callout_boxes_output( $atts, $content = null) {
         {
             case 'note':
                 $atts['type'] = 'info';
+                break;
                     
             case 'message':
                 $atts['type'] = 'tips';
+                break;
 
             case 'warning':
                 $atts['type'] = 'note';
+                break;
 
             case 'error':
                 $atts['type'] = 'warn';
+                break;
         }
     }
 
-	$options = get_option( 'cob_options' );
+	//$options = get_option( 'cob_options' );
 	$classes = array();
 	$classes[] = $atts['type'];
 	$classes[] = $atts['size'];
