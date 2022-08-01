@@ -1,41 +1,68 @@
 <?php
-/**
- * Callout Boxes Plugin
- *
- * @package    callout-boxes
- * @author     David Skinner <djbskinner.icloud.com>
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
- */
 
 /**
  * Plugin Name: Callout Boxes
- * Plugin URI: 
  * Description: Use responsives callout boxes with shortcodes.
- * Version: 2.0.0
+ * Version: 2.1.0
  * Author: David Skinner
- * Author URI: 
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-/*  Copyright 2022 David Skinner (email: djbskinner@icloud.com)
+class BaskCalloutBoxes {
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as
-    published by the Free Software Foundation.
+    function __construct() {
+        //Website Backend - TinyMCE
+        add_action( 'admin_head', array($this, 'callout_boxes_tinymce') );
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+    }
+
+    /*********************************************************************
+    * TINYMCE
+    *********************************************************************/
+
+    /**
+     * Register TinyMCE plugin
+     *
+     * @since 1.2.0
+     */
+    function callout_boxes_tinymce() {
+        add_filter( 'mce_external_plugins', 'cob_add_tinymce_plugin' );
+        add_filter( 'mce_buttons', 'cob_add_tinymce_button' );
+    }
+
+
+    /**
+     * Add TinyMCE plugin
+     *
+     * @since 1.2.0
+     *
+     * @param array $plugin_array TinyMCE plugins list
+     */
+    function cob_add_tinymce_plugin( $plugin_array ) {
+        $plugin_array['callout_boxes'] = plugins_url( '/js/tinymce-plugin.js', __FILE__ );
+        return $plugin_array;
+    }
+
+    /**
+     * Add TinyMCE plugin button
+     *
+     * @since 1.2.0
+     */
+    function cob_add_tinymce_button( $buttons ) {
+        array_push( $buttons, 'callout_box_button_key' );
+        return $buttons;
+    }
+
+
+    }
+
+$baskCalloutBoxes = new BaskCalloutBoxes();
+
 
 /**
- * Styles enqueue
+ * Styles Enqueue
  *
  * @since 1.0.0
  */
@@ -57,6 +84,7 @@ function callout_boxes_admin_styles() {
 }
 add_action( 'admin_enqueue_scripts', 'callout_boxes_admin_styles' );
 
+
 /*********************************************************************
  * SHORTCODES
 *********************************************************************/
@@ -72,15 +100,38 @@ add_action( 'admin_enqueue_scripts', 'callout_boxes_admin_styles' );
  * @param string $content Shortcode content.
  * @return string Shortcode HTML.
  */
-function callout_boxes_output( $atts, $content = null) {
+function callout_boxes_output( array $atts, string $content = null) {
     $atts = shortcode_atts( array(
         'type'      => 'info',      // set type attr and defaults
 		'size'      => 'normal',    // set size attr and defaults
-		'text'      => ''           // 1.0.0 $content
+		'icon-size' => '',			// same as above - from simple alert boxes
+		'element'	=> ''			// From Documentor
     ), $atts );
-
+    
     /* ALERT SHORTCODE */
-    $atts['size'] = $atts['icon-size'];
+    if($atts['icon-size'] != '')
+    {
+        switch ($atts['type'])
+        {
+            case 'success':
+                $atts['type'] = 'info';
+                break;
+                    
+            case 'info':
+                $atts['type'] = 'tips';
+                break;
+
+            case 'warning':
+                $atts['type'] = 'note';
+                break;
+
+            case 'danger':
+                $atts['type'] = 'warn';
+                break;
+        }
+
+        $atts['size'] = $atts['icon-size'];
+    }
 
     /* DOCUMETOR SHORTCODE */
     if($atts['element'] == 'callout')
@@ -89,19 +140,23 @@ function callout_boxes_output( $atts, $content = null) {
         {
             case 'note':
                 $atts['type'] = 'info';
+                break;
                     
             case 'message':
                 $atts['type'] = 'tips';
+                break;
 
             case 'warning':
                 $atts['type'] = 'note';
+                break;
 
             case 'error':
                 $atts['type'] = 'warn';
+                break;
         }
     }
 
-	$options = get_option( 'cob_options' );
+	//$options = get_option( 'cob_options' );
 	$classes = array();
 	$classes[] = $atts['type'];
 	$classes[] = $atts['size'];
@@ -145,39 +200,3 @@ function empty_paragraph_fix( $content ) {
 add_filter( 'the_content', 'empty_paragraph_fix' );
 
 
-/*********************************************************************
- * TINYMCE
-*********************************************************************/
-
-/**
- * Register TinyMCE plugin
- *
- * @since 1.2.0
- */
-function callout_boxes_tinymce() {
-    add_filter( 'mce_external_plugins', 'cob_add_tinymce_plugin' );
-    add_filter( 'mce_buttons', 'cob_add_tinymce_button' );
-}
-add_action( 'admin_head', 'callout_boxes_tinymce' );
-
-/**
- * Add TinyMCE plugin
- *
- * @since 1.2.0
- *
- * @param array $plugin_array TinyMCE plugins list
- */
-function cob_add_tinymce_plugin( $plugin_array ) {
-    $plugin_array['callout_boxes'] = plugins_url( '/js/tinymce-plugin.js', __FILE__ );
-    return $plugin_array;
-}
-
-/**
- * Add TinyMCE plugin button
- *
- * @since 1.2.0
- */
-function cob_add_tinymce_button( $buttons ) {
-    array_push( $buttons, 'callout_box_button_key' );
-    return $buttons;
-}
