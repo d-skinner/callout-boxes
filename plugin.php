@@ -40,7 +40,7 @@
  * @since 1.0.0
  */
 function callout_boxes_styles() {
-	$options = get_option( 'cob_options' );
+	//$options = get_option( 'cob_options' );
 
 	wp_enqueue_style( 'callout-boxes', plugins_url( 'css/callout-boxes.css', __FILE__ ), array(), '1.4', 'all' );
 	wp_enqueue_style( 'cob-fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0', 'all' );
