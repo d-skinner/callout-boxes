@@ -2,10 +2,10 @@
     tinymce.PluginManager.add( 'callout_boxes', function(editor, url){
 
         editor.addButton( 'callout_box_button_key', {
-
-            tooltip: 'Insert Callout Box',
+            text: "Callout"
+            /*tooltip: "Insert Callout Box",
             icon: 'icon dashicons-align-wide',
-            /*onclick: function(){
+            onclick: function(){
                 var selection = tinymce.activeEditor.selection.getContent();
                 // Open window
                 editor.windowManager.open({
