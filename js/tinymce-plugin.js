@@ -5,7 +5,7 @@
 
             tooltip: 'Insert Callout Box',
             icon: 'icon dashicons-align-wide',
-            onclick: function(){
+            /*onclick: function(){
                 var selection = tinymce.activeEditor.selection.getContent();
                 // Open window
                 editor.windowManager.open({
@@ -48,7 +48,7 @@
                         editor.insertContent( '[callout  type="'+ e.data.callout_type +'" size="'+ e.data.icon_size +'"]' + e.data.text + '[/callout]');
                     }
                 });
-            }
+            }*/
         });
     });
 })();
