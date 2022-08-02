@@ -180,10 +180,20 @@ add_filter( 'the_content', 'empty_paragraph_fix' );
  * @since 1.2.0
  */
 function callout_boxes_tinymce() {
-    add_filter( 'mce_external_plugins', 'cob_add_tinymce_plugin' );
     add_filter( 'mce_buttons', 'cob_add_tinymce_button' );
+    add_filter( 'mce_external_plugins', 'cob_add_tinymce_plugin' );
 }
 add_action( 'admin_head', 'callout_boxes_tinymce' );
+
+/**
+ * Add TinyMCE button
+ *
+ * @since 1.2.0
+ */
+function cob_add_tinymce_button( $buttons ) {
+    array_push( $buttons, 'callout_box_button_key' );
+    return $buttons;
+}
 
 /**
  * Add TinyMCE plugin
@@ -193,16 +203,6 @@ add_action( 'admin_head', 'callout_boxes_tinymce' );
  * @param array $plugin_array TinyMCE plugins list
  */
 function cob_add_tinymce_plugin( $plugin_array ) {
-    $plugin_array['callout_boxes'] = plugins_url( '/js/tinymce-plugin.js', __FILE__ );
+    $plugin_array['callout_boxes'] = plugins_url( 'js/tinymce-plugin.js', __FILE__ );
     return $plugin_array;
-}
-
-/**
- * Add TinyMCE plugin button
- *
- * @since 1.2.0
- */
-function cob_add_tinymce_button( $buttons ) {
-    array_push( $buttons, 'callout_box_button_key' );
-    return $buttons;
 }
