@@ -2,8 +2,8 @@
     tinymce.PluginManager.add( 'callout_boxes', function(editor, url){
 
         editor.addButton( 'callout_box_button_key', {
-            text: "Callout"
-            /*tooltip: "Insert Callout Box",
+
+            tooltip: "Insert Callout Box",
             icon: 'icon dashicons-align-wide',
             onclick: function(){
                 var selection = tinymce.activeEditor.selection.getContent();
@@ -48,7 +48,7 @@
                         editor.insertContent( '[callout  type="'+ e.data.callout_type +'" size="'+ e.data.icon_size +'"]' + e.data.text + '[/callout]');
                     }
                 });
-            }*/
+            }
         });
     });
 })();

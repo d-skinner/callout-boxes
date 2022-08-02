@@ -10,7 +10,7 @@
 /**
  * Plugin Name: Callout Boxes
  * Description: Use responsives callout boxes with shortcodes.
- * Version: 2.0.1
+ * Version: 2.1.0
  * Author: David Skinner
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -183,7 +183,7 @@ function callout_boxes_tinymce() {
     add_filter( 'mce_buttons', 'cob_add_tinymce_button' );
     add_filter( 'mce_external_plugins', 'cob_add_tinymce_plugin' );
 }
-add_action( 'admin_head', 'callout_boxes_tinymce' );
+add_action( 'admin_init', 'callout_boxes_tinymce' );
 
 /**
  * Add TinyMCE button
