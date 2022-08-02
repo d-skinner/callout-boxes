@@ -3,17 +3,15 @@
  * Callout Boxes Plugin
  *
  * @package    callout-boxes
- * @author     David Skinner <djbskinner.icloud.com>
+ * @author     David Skinner <djbskinner@icloud.com>
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
  * Plugin Name: Callout Boxes
- * Plugin URI: 
  * Description: Use responsives callout boxes with shortcodes.
- * Version: 2.0.0
+ * Version: 2.0.1
  * Author: David Skinner
- * Author URI: 
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
