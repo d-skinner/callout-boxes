@@ -27,7 +27,7 @@
                             'values': [
                                 {text: 'Info', value: 'info'},
                                 {text: 'Tips', value: 'tips'},
-                                {text: 'Important Notes', value: 'note'},
+                                {text: 'Notice', value: 'note'},
                                 {text: 'Warnings', value: 'warn'}
                             ]
                         },
