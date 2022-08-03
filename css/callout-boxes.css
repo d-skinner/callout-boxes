@@ -28,24 +28,24 @@
 /*==============================================================================
                                     THEMES
 ==============================================================================*/
+.callout-box.cob_tip
+{
+    /*color: hsl(86, 75%, 60%)*/
+    --color: 86, 75%;
+}
+
 .callout-box.cob_info
 {
     /*color: hsl(0, 0%, 60%);*/
     --color: 0, 0%;
 }
-    
-.callout-box.cob_tips
-{
-    /*color: hsl(86, 75%, 60%)*/
-    --color: 86, 75%;
-}
-    
+
 .callout-box.cob_note
 {
     /*color: hsl(46, 75%, 60%);*/
     --color: 46, 75%;
 }
-    
+
 .callout-box.cob_warn
 {
     /*color: hsl(0, 75%, 60%);*/
@@ -93,14 +93,14 @@
     left: 1em;
 }
 
+.callout-box.cob_tip::before
+{
+    content: "\f00c";
+}
+
 .callout-box.cob_info::before
 {
     content: "\f129";
-}
-
-.callout-box.cob_tips::before
-{
-    content: "\f00c";
 }
 
 .callout-box.cob_note::before

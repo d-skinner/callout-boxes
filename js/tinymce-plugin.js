@@ -25,10 +25,10 @@
                             name: 'callout_type',
                             label: 'Callout Type',
                             'values': [
+                                {text: 'Tip', value: 'tip'},
                                 {text: 'Info', value: 'info'},
-                                {text: 'Tips', value: 'tips'},
                                 {text: 'Notice', value: 'note'},
-                                {text: 'Warnings', value: 'warn'}
+                                {text: 'Warning', value: 'warn'}
                             ]
                         },
                         {
