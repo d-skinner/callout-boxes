@@ -29,7 +29,23 @@ Built on the work from Simple Alert Boxes
 
 ----
 
+## Installation
+
+### Actions Secrets
+
+FTP_SERVER
+FTP_USERNAME
+FTP_PASSWORD
+
+----
+
 ## Changelog
+
+#### 2.1.3 - 09/08/2022
+* Added main.yml - Action Script
+* Changed "admin_head" to "admin_init" to get TinyMCE too display on ALL pages!
+* Changed the wording of "Callout Type". (CSS and JS)
+* Updated readme.md file
 
 #### 2.0.1 - 15/07/2022
 * Added 'alert' and 'docembed' Shortcodes

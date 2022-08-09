@@ -10,7 +10,7 @@
 /**
  * Plugin Name: Callout Boxes
  * Description: Use responsives callout boxes with shortcodes.
- * Version: 2.1.2
+ * Version: 2.1.3
  * Author: David Skinner
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -111,7 +111,7 @@ function callout_boxes_output( array $atts, string $content = null) {
             case 'message':
                 $atts['type'] = 'tip';
                 break;
-                
+
             case 'note':
                 $atts['type'] = 'info';
                 break;
